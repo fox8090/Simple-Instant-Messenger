@@ -1,9 +1,6 @@
 import sys
 import socket
 import threading
-import time
-
-'''python server.py [port]python client.py [username] [hostname] [port'''
 
 def start_connection():
     clientSocket = socket.socket()
@@ -20,7 +17,7 @@ def start_connection():
 def sender(clientSocket):
     clientSocket.send(("type:i data:" + username).encode())
     while True:
-        message = input()
+        message = input("\r[You] ")
         if message == 'quit':
             clientSocket.send(("type:q data:None").encode())
             clientSocket.close()
@@ -42,7 +39,7 @@ def receiver(clientSocket):
         try:
             received = clientSocket.recv(1024)
             if received:
-                print("\r" + received.decode() + "\n>> ", end="")
+                print("\r" + received.decode() + "\n\r[You] ", end="")
         except:
             exit()
 

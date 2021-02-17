@@ -79,12 +79,18 @@ def new_connection(connection):
                     print(allNames[connection] +" whispers to "+ receiverName + ": " + toSend)
 
                 elif message[5] == 'h':
-                    out = "[SERVER] helpful stuff...."
+                    out = "[SERVER] You can type messages and press enter to send. Or you can use the following commands:\n         quit -> exits program\n         users -> displays list of connected users\n         rename newname -> changes your username to newname\n         whisper user message -> sends user a message only\n         help -> displays this help message"
                     connection.send(out.encode())
                     print(out)
                 elif message[5] == 'a':
                     out = "[{}] {}".format(allNames[connection], message[12:])
-                    send_to_all(out)
+                    for client in allClients:
+                        if connection != client:
+                            try:
+                                client.send(out.encode())
+                            except:
+                                closeAll
+                    #send_to_all(out)
                     print(out)
                 else:
                     print("ERROR: MESSAGE NOT RECOGNISED")
