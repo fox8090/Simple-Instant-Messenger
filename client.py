@@ -18,13 +18,23 @@ def start_connection():
     
 
 def sender(clientSocket):
-    clientSocket.send(("type:n data:" + username).encode())
+    clientSocket.send(("type:i data:" + username).encode())
     while True:
         message = input()
         if message == 'quit':
+            clientSocket.send(("type:q data:None").encode())
             clientSocket.close()
             break
-        clientSocket.send(("type:a data:"+message).encode())
+        elif message[:7] == 'rename ':
+            clientSocket.send(("type:r data:" + message[8:]).encode())
+        elif message == 'users':
+            clientSocket.send(("type:u data:None").encode())
+        elif message[:8] == 'whisper ':
+            clientSocket.send(("type:w data:" + message[9:]).encode())
+        elif message == 'help':
+            clientSocket.send(("type:h data:None").encode())
+        else:
+            clientSocket.send(("type:a data:"+message).encode())
         
 
 def receiver(clientSocket):
