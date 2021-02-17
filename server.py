@@ -18,34 +18,80 @@ def new_connection(connection):
     while user is None:
         try:
             message = connection.recv(1024).decode()
-            if message[5] == 'n':
+            if message[5] == 'i':
                 user = message[12:]
                 allNames[connection] = user
             else:
                 user = None
         except:
-            connection.send("[SERVER] A valid username is required.")
-    helpInfo = "[SERVER] Welcome " + user + "! Type 'quit' to exit. Enjoy!"
+            connection.send("[SERVER] A valid username is required.").encode()
+    helpInfo = "[SERVER] Welcome " + allNames[connection] + "! Type 'quit' to exit. Enjoy!"
     connection.send(helpInfo.encode())
-    message = "[SERVER] " + user + " has joined"
+    message = "[SERVER] " + allNames[connection] + " has joined"
     send_to_all(message)
     print(message)
     while True:
         try:
             message = connection.recv(1024).decode()
             if message:
-                print(message)
-                if message[5] == 'a':
-                    print("here")
+                if message[5] == 'q':
+                    allClients[connection].close()
+                elif message[5] == 'r':
+                    newName = message[12:]
+                    message = "[SERVER] " + allNames[connection] + " has changed their name to " + newName + "."
+                    allNames[connection] = newName
+                    send_to_all(message)
+                    print(message)
+                elif message[5] == 'u':
+                    out = "[SERVER] List of connected users: "
+                    for client in allNames:
+                        out += allNames[client] + ', '
+                    out = out[:len(out)-2] + '.'
+                    connection.send(out.encode())
+                    print(out)
+                elif message[5] == 'w':
+                    receiverName = ''
+                    toSend = ''
+                    space = False
+                    for char in message[12:]:
+                        if char == ' ' and not space:
+                            space = True
+                            continue
+                        if space:
+                            toSend = toSend + char
+                        else:
+                            receiverName = receiverName + char
+                    found = False
+                    for client in allNames:
+                        if receiverName == allNames[client]:
+                            found = True
+                            receiver = client
+                            break
+                    if not found:
+                        out = "[SERVER] No such username '" + receiverName + "'. Message not sent."
+                        connection.send(out.encode())
+                        continue
+                    else:
+                        out = "[" + allNames[connection] + "] *whispers* " + toSend
+                        receiver.send(out.encode())
+                        out = "[SERVER] Whisper sent."
+                        connection.send(out.encode()) 
+                    print(allNames[connection] +" whispers to "+ receiverName + ": " + toSend)
+
+                elif message[5] == 'h':
+                    out = "[SERVER] helpful stuff...."
+                    connection.send(out.encode())
+                    print(out)
+                elif message[5] == 'a':
                     out = "[{}] {}".format(allNames[connection], message[12:])
                     send_to_all(out)
                     print(out)
                 else:
-                    print("ERROR")
+                    print("ERROR: MESSAGE NOT RECOGNISED")
         except:
             print("[SERVER] Lost connection from", allClients[connection])
             del allClients[connection]
-            out = "[SERVER] " + allNames[connection] + " has left"
+            out = "[SERVER] " + allNames[connection] + " has left."
             send_to_all(out)
             print(out)
             del allNames[connection]

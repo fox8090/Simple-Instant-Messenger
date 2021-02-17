@@ -26,11 +26,11 @@ def sender(clientSocket):
             clientSocket.close()
             break
         elif message[:7] == 'rename ':
-            clientSocket.send(("type:r data:" + message[8:]).encode())
+            clientSocket.send(("type:r data:" + message[7:]).encode())
         elif message == 'users':
             clientSocket.send(("type:u data:None").encode())
         elif message[:8] == 'whisper ':
-            clientSocket.send(("type:w data:" + message[9:]).encode())
+            clientSocket.send(("type:w data:" + message[8:]).encode())
         elif message == 'help':
             clientSocket.send(("type:h data:None").encode())
         else:
