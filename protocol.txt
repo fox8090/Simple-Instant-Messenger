@@ -1,0 +1,51 @@
+This document explains the protocol between client and server and what messages can be sent.
+
+All messages are formatted into the following format 'type:x data:xxx'.
+There are six message types:
+    Quit:       e.g. 'type:q data:None'
+                      Data field is not read by the server for this type.
+                      This message is sent when the user types the 'quit' command.
+                      It tells the server the connection will end before closing it. The server then attempts to close the connection before removing all relevant data.
+                      There is no response from the server, however, a message is sent to all other connections informing that a user has left.
+    
+    Rename:     e.g. 'type:r data:newname'
+                      This message is sent by the client requesting a name change. The data field will be the new name.
+                      The server changes its stored data to reflect this before sending a message to all users informing them of this successful name change.
+                      The receipt message will be the same one sent to all.
+
+    Users:      e.g. 'type:u data:None'
+                      Data field is not read by the server for this type.
+                      This message is sent by the client requesting a list of all connected users.
+                      The server responds with a formatted list of all the usernames it has connected.
+
+    whisper:    e.g. 'type:w data:name message'
+                      This message is sent by the client to the server requested the message be sent to the connection using username name only.
+                      The server checks this is possible before responding to the client that the message has been correctly sent or not.
+                      A message is then sent to the connection using username name containing the message.
+
+    Help:       e.g. 'type:h data:None'
+                      Data field is not read by the server for this type.
+                      This message is sent by the client requesting a list of help commands.
+                      The server responds with a list of help commands.
+
+    All:        e.g. 'type:a data:message'
+                      This message is sent by the client requesting a message be sent to all connected users.
+                      The server then attempts to send a message to all connections with theis message.
+
+The server will only respond with messages to be displayed by the respective client.
+An example output for one use is shown below:
+[SERVER] Welcome Matt! Type 'help' for commands. Enjoy!
+[SERVER] Matt has joined.
+[You] Hello?
+[You] users
+[SERVER] List of connected users: Matt.
+[SERVER] computer has joined.
+[You] Hey!
+[SERVER] computer has changed their name to John.
+[John] Ah hello Matt!
+[SERVER] Carl has joined.
+[Carl] Hey guys!
+
+Any messages that are displayed have the prefix [username]. Any messages that are received from the server have the prefix [SERVER].
+This uncrowded and concise look to the UI makes writing commands quick and intuitive.
+The input prompt is '[You] ' with the user's cursor. This is removed when a message is received from the server, again keeping the interface clear and concise.
