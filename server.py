@@ -3,6 +3,7 @@ import socket
 import threading
 import logging
 
+# Start the server and accept connections from new clients
 def start_server():
     serverSocket = socket.socket()
     serverSocket.bind(('', int(port)))
@@ -15,6 +16,9 @@ def start_server():
         allClients[connection] = clientAddress
         threading._start_new_thread(new_connection, (connection, clientAddress))
 
+# New thread started for each client
+# Handle any messages that are sent to the server
+# Handle any messages that need to be sent to clients
 def new_connection(connection, clientAddress):
     user = None
     while user is None:
@@ -42,7 +46,7 @@ def new_connection(connection, clientAddress):
             if message:
                 print(message)
                 if message[5] == 'q':
-                    logging.info("User at %s requested to close connection.")
+                    logging.info("User at %s requested to close connection.", clientAddress)
                     connection.close()
                     logging.info("Connection at %s has been closed.", clientAddress)
                 elif message[5] == 'r':
@@ -126,6 +130,7 @@ def new_connection(connection, clientAddress):
             del allNames[connection]
             break
 
+# Sends message to all connected clients
 def send_to_all(message):
     for client in allClients:
         try:
@@ -133,6 +138,7 @@ def send_to_all(message):
         except:
             closeAll()
 
+# Attempts to close all connections before exiting the program
 def closeAll():
     for client in allClients:
         client.close()

@@ -2,6 +2,7 @@ import sys
 import socket
 import threading
 
+# Establish connection with server and start threads
 def start_connection():
     clientSocket = socket.socket()
     try:
@@ -9,11 +10,10 @@ def start_connection():
     except:
         print("Server is not available or port/hostname are wrong.")
         exit()
-
     threading.Thread(target=receiver, args=(clientSocket, )).start()
     threading.Thread(target=sender, args=(clientSocket, )).start()
     
-
+# Handle processing and sending user input to server
 def sender(clientSocket):
     clientSocket.send(("type:i data:" + username).encode())
     while True:
@@ -33,7 +33,7 @@ def sender(clientSocket):
         else:
             clientSocket.send(("type:a data:"+message).encode())
         
-
+# Handle receiving and displaying messages sent from server
 def receiver(clientSocket):
     while True:
         try:

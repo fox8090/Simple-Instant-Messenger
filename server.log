@@ -1,0 +1,44 @@
+02/18/2021 08:56:28 AM - INFO :  Server started.
+02/18/2021 08:57:07 AM - INFO :  Established new connection from ('127.0.0.1', 50184).
+02/18/2021 08:57:07 AM - INFO :  [SERVER] -> [Matt] Welcome Matt! Type 'help' for commands. Enjoy!
+02/18/2021 08:57:07 AM - INFO :  [SERVER] -> [ALL] Matt has joined.
+02/18/2021 08:57:15 AM - INFO :  [SERVER] -> [ALL] Hello?
+02/18/2021 08:57:17 AM - INFO :  User at ('127.0.0.1', 50184) requested a list of users.
+02/18/2021 08:57:17 AM - INFO :  [SERVER] -> [Matt] List of connected users: Matt.,
+02/18/2021 08:57:48 AM - INFO :  Established new connection from ('127.0.0.1', 50189).
+02/18/2021 08:57:48 AM - INFO :  [SERVER] -> [computer] Welcome computer! Type 'help' for commands. Enjoy!
+02/18/2021 08:57:48 AM - INFO :  [SERVER] -> [ALL] computer has joined.
+02/18/2021 08:57:53 AM - INFO :  [SERVER] -> [ALL] Hey!
+02/18/2021 08:57:57 AM - INFO :  User at ('127.0.0.1', 50189) requested list of help commands.
+02/18/2021 08:57:57 AM - INFO :  [SERVER] - [computer] You can type messages and press enter to send. Or you can use the following commands:
+         quit -> exits program
+         users -> displays list of connected users
+         rename newname -> changes your username to newname
+         whisper user message -> sends user a message only
+         help -> displays this help message
+02/18/2021 08:58:10 AM - INFO :  Changed username for ('127.0.0.1', 50189) to John.
+02/18/2021 08:58:10 AM - INFO :  [SERVER] -> [ALL] computer has changed their name to John.
+02/18/2021 08:58:20 AM - INFO :  [SERVER] -> [ALL] Ah hello Matt!
+02/18/2021 08:58:56 AM - INFO :  Established new connection from ('127.0.0.1', 50193).
+02/18/2021 08:58:56 AM - INFO :  [SERVER] -> [Carl] Welcome Carl! Type 'help' for commands. Enjoy!
+02/18/2021 08:58:56 AM - INFO :  [SERVER] -> [ALL] Carl has joined.
+02/18/2021 08:59:00 AM - INFO :  [SERVER] -> [ALL] Hey guys!
+02/18/2021 08:59:12 AM - INFO :  [Matt] -> [Carl] *whispers* Ugh Carl's here
+02/18/2021 08:59:12 AM - INFO :  [SERVER] -> [Matt] Whisper sent.
+02/18/2021 08:59:27 AM - INFO :  [SERVER] -> [ALL] Oops wrong person
+02/18/2021 08:59:30 AM - INFO :  [SERVER] -> [ALL] I should go
+02/18/2021 08:59:32 AM - INFO :  [SERVER] -> [ALL] bye
+02/18/2021 08:59:34 AM - INFO :  User at ('127.0.0.1', 50184) requested to close connection.
+02/18/2021 08:59:34 AM - INFO :  Connection at ('127.0.0.1', 50184) has been closed.
+02/18/2021 08:59:34 AM - WARNING :  Lost connection from ('127.0.0.1', 50184)
+02/18/2021 08:59:34 AM - INFO :  [SERVER] -> [ALL] Matt has left.
+02/18/2021 08:59:37 AM - INFO :  [SERVER] -> [ALL] woa
+02/18/2021 08:59:39 AM - INFO :  User at ('127.0.0.1', 50189) requested to close connection.
+02/18/2021 08:59:39 AM - INFO :  Connection at ('127.0.0.1', 50189) has been closed.
+02/18/2021 08:59:39 AM - WARNING :  Lost connection from ('127.0.0.1', 50189)
+02/18/2021 08:59:39 AM - INFO :  [SERVER] -> [ALL] John has left.
+02/18/2021 08:59:46 AM - INFO :  [SERVER] -> [ALL] Okay bye then
+02/18/2021 08:59:48 AM - INFO :  User at ('127.0.0.1', 50193) requested to close connection.
+02/18/2021 08:59:48 AM - INFO :  Connection at ('127.0.0.1', 50193) has been closed.
+02/18/2021 08:59:48 AM - WARNING :  Lost connection from ('127.0.0.1', 50193)
+02/18/2021 08:59:48 AM - INFO :  [SERVER] -> [ALL] Carl has left.
